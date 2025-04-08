@@ -3,7 +3,6 @@ import {
   doc,
   getDoc,
   updateDoc,
-  arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase/firebase";
@@ -256,6 +255,10 @@ const DailyShlok = () => {
     return <div className="loading">Loading today's wisdom...</div>;
   }
 
+  if (error) {
+    return <div className="error">Error loading today's shlok: {error}</div>;
+  }
+
   if (!shlok) {
     return <div className="error">Failed to load today's shlok.</div>;
   }
@@ -283,7 +286,7 @@ const DailyShlok = () => {
 
         <div className="sanskrit-text">
           <div className="sanskrit-heading">
-            <h3>Sanskrit</h3>
+            <h3>Shlok</h3>
             <div className="decorative-line"></div>
           </div>
           <p>{shlok?.sanskrit || ""}</p>
