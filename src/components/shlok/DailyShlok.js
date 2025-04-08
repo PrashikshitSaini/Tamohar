@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  arrayUnion,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db, auth } from "../../firebase/firebase";
 import { FaBookmark, FaRegBookmark, FaShare } from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
