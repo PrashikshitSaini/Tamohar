@@ -32,8 +32,10 @@ const DailyShlok = () => {
       try {
         setLoading(true);
 
-        // Fetch the CSV file from the public folder
-        const response = await fetch("/data/gita-shloks.csv");
+        // Update the path with process.env.PUBLIC_URL to ensure correct path resolution
+        const response = await fetch(
+          `${process.env.PUBLIC_URL}/data/gita-shloks.csv`
+        );
 
         if (!response.ok) {
           throw new Error(`Failed to fetch CSV: ${response.status}`);
