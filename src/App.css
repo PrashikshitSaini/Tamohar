@@ -1,21 +1,31 @@
 /* Global Styles */
 :root {
-  --primary-color: #ff9d00;
-  --primary-light: #ffb74d;
-  --primary-dark: #c66900;
-  --secondary-color: #7e57c2;
-  --secondary-light: #b085f5;
-  --secondary-dark: #4d2c91;
-  --text-color: #e0e0e0;
+  /* New color theme - deep blue/teal with warm accents */
+  --primary-color: #00a19d;
+  --primary-light: #2ec4b6;
+  --primary-dark: #007a77;
+  --secondary-color: #ff9a76;
+  --secondary-light: #ffb5a7;
+  --secondary-dark: #e56b6f;
+  --text-color: #e6e6e6;
   --light-text: #bdbdbd;
-  --background-color: #121212;
-  --card-color: #1e1e1e;
-  --card-highlight: #2d2d2d;
-  --border-color: #333333;
+  --background-color: #1a2639;
+  --card-color: #2a3950;
+  --card-highlight: #3a4c6b;
+  --border-color: #495976;
   --success-color: #66bb6a;
   --error-color: #ef5350;
-  --spiritual-gold: #d4af37;
-  --spiritual-purple: #9c27b0;
+  --spiritual-gold: #ffd166;
+  --spiritual-purple: #6f42c1;
+  --animation-speed: 20s;
+  --particle-size: 2px;
+  --particle-color: rgba(255, 209, 102, 0.4);
+  --meditation-blue: #003366;
+  --aurora-green: #56ab2f;
+  --aurora-blue: #00a8cc;
+  --aurora-purple: #8e44ad;
+  --wave-color: rgba(46, 196, 182, 0.05);
+  --wave-color-alt: rgba(0, 161, 157, 0.03);
 }
 
 * {
@@ -29,14 +39,12 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
-  background-image: radial-gradient(
-    circle at 10% 20%,
-    rgba(40, 30, 60, 0.8) 0%,
-    rgba(18, 18, 18, 1) 90%
-  );
+  /* Replace the background with new animated gradient */
+  background-image: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
   background-attachment: fixed;
   background-size: cover;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Spiritual decorative elements */
@@ -45,11 +53,12 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    var(--spiritual-gold),
+    var(--primary-light),
     transparent
   );
   margin: 8px 0 15px;
   position: relative;
+  overflow: hidden;
 }
 
 .decorative-line::before {
@@ -62,6 +71,7 @@ body {
   background-color: var(--card-color);
   padding: 0 10px;
   font-size: 14px;
+  animation: gentle-rotate 6s infinite alternate;
 }
 
 .spiritual-pattern {
@@ -89,6 +99,23 @@ body {
 .section-heading {
   position: relative;
   margin-bottom: 20px;
+}
+
+.section-heading h3::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--spiritual-gold),
+    transparent
+  );
+  animation: breathe 5s infinite alternate ease-in-out;
 }
 
 .container {
@@ -313,6 +340,8 @@ button {
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+  animation: fade-in 0.8s ease-out;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .auth-card::before {
@@ -446,6 +475,8 @@ button {
   position: relative;
   border: 1px solid var(--border-color);
   border-top: none;
+  animation: fade-in 0.8s ease-out;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .shlok-header {
@@ -536,13 +567,21 @@ button {
   transition: all 0.3s ease;
 }
 
+.action-button span {
+  display: inline-block; /* Ensure span is always visible */
+  color: inherit; /* Inherit color from parent */
+  margin-left: 5px; /* Add some spacing after icon */
+  font-size: 0.95rem;
+}
+
 .bookmark-button {
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
 }
 
 .bookmark-button:hover {
-  background-color: rgba(255, 157, 0, 0.1);
+  background-color: rgba(0, 161, 157, 0.1); /* Updated for new color theme */
+  color: var(--primary-light);
 }
 
 .share-button {
@@ -551,7 +590,8 @@ button {
 }
 
 .share-button:hover {
-  background-color: rgba(126, 87, 194, 0.1);
+  background-color: rgba(255, 154, 118, 0.1); /* Updated for new color theme */
+  color: var(--secondary-light);
 }
 
 .note-input-container {
@@ -667,6 +707,8 @@ button {
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+  animation: fade-in 0.8s ease-out;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .bookmark-card::before {
@@ -804,6 +846,8 @@ button {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   padding: 2.5rem;
   border: 1px solid var(--border-color);
+  animation: fade-in 0.8s ease-out;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .settings-section {
@@ -923,7 +967,7 @@ input:checked + .switch-label:before {
 
 .empty-bookmarks p {
   margin-bottom: 2rem;
-  color: var(--light-text);
+  color: var (--light-text);
 }
 
 .empty-bookmarks .btn-primary {
@@ -969,7 +1013,9 @@ input:checked + .switch-label:before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: lotus-pulse 4s ease-in-out infinite;
+  animation: lotus-pulse 7s ease-in-out infinite,
+    lotus-glow 8s infinite alternate;
+  text-shadow: 0 0 15px var(--primary-light);
 }
 
 @keyframes lotus-pulse {
@@ -984,6 +1030,15 @@ input:checked + .switch-label:before {
   100% {
     transform: translate(-50%, -50%) scale(0.8);
     opacity: 0.5;
+  }
+}
+
+@keyframes lotus-glow {
+  0% {
+    text-shadow: 0 0 5px var(--spiritual-gold);
+  }
+  100% {
+    text-shadow: 0 0 20px var(--spiritual-gold), 0 0 40px var(--primary-light);
   }
 }
 
@@ -1016,6 +1071,707 @@ input:checked + .switch-label:before {
   box-shadow: 0 0 100px rgba(212, 175, 55, 0.1);
 }
 
+/* Add cosmic particle background */
+.cosmic-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -3;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  background: var(--particle-color);
+  border-radius: 50%;
+  animation: float-particle var(--animation-speed) infinite linear;
+  box-shadow: 0 0 10px 2px var(--spiritual-gold);
+}
+
+/* Replace SASS loop and random functions with specific particle classes */
+.particle:nth-child(1) {
+  top: 10%;
+  left: 25%;
+  animation-delay: 0s;
+  animation-duration: var(--animation-speed);
+  opacity: 0.3;
+  transform: scale(0.6);
+}
+
+.particle:nth-child(2) {
+  top: 35%;
+  left: 5%;
+  animation-delay: 2s;
+  animation-duration: calc(var(--animation-speed) + 5s);
+  opacity: 0.5;
+  transform: scale(0.8);
+}
+
+.particle:nth-child(3) {
+  top: 70%;
+  left: 50%;
+  animation-delay: 1s;
+  animation-duration: calc(var(--animation-speed) + 3s);
+  opacity: 0.2;
+  transform: scale(0.4);
+}
+
+.particle:nth-child(4) {
+  top: 90%;
+  left: 80%;
+  animation-delay: 3.5s;
+  animation-duration: calc(var(--animation-speed) + 7s);
+  opacity: 0.6;
+  transform: scale(1);
+}
+
+.particle:nth-child(5) {
+  top: 5%;
+  left: 75%;
+  animation-delay: 6s;
+  animation-duration: calc(var(--animation-speed) + 12s);
+  opacity: 0.4;
+  transform: scale(0.7);
+}
+
+.particle:nth-child(6) {
+  top: 50%;
+  left: 15%;
+  animation-delay: 4s;
+  animation-duration: calc(var(--animation-speed) + 8s);
+  opacity: 0.3;
+  transform: scale(0.5);
+}
+
+.particle:nth-child(7) {
+  top: 20%;
+  left: 95%;
+  animation-delay: 0.5s;
+  animation-duration: calc(var(--animation-speed) + 4s);
+  opacity: 0.7;
+  transform: scale(0.9);
+}
+
+.particle:nth-child(8) {
+  top: 65%;
+  left: 30%;
+  animation-delay: 5s;
+  animation-duration: calc(var(--animation-speed) + 2s);
+  opacity: 0.5;
+  transform: scale(0.75);
+}
+
+.particle:nth-child(9) {
+  top: 85%;
+  left: 65%;
+  animation-delay: 7s;
+  animation-duration: calc(var(--animation-speed) + 9s);
+  opacity: 0.3;
+  transform: scale(0.65);
+}
+
+.particle:nth-child(10) {
+  top: 15%;
+  left: 45%;
+  animation-delay: 3s;
+  animation-duration: calc(var(--animation-speed) + 6s);
+  opacity: 0.4;
+  transform: scale(0.8);
+}
+
+.particle:nth-child(11) {
+  top: 25%;
+  left: 85%;
+  animation-delay: 6.5s;
+  animation-duration: calc(var(--animation-speed) + 11s);
+  opacity: 0.2;
+  transform: scale(0.5);
+}
+
+.particle:nth-child(12) {
+  top: 80%;
+  left: 20%;
+  animation-delay: 1.5s;
+  animation-duration: calc(var(--animation-speed) + 8s);
+  opacity: 0.6;
+  transform: scale(0.7);
+}
+
+/* Sacred geometry animation */
+.sacred-geometry {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  width: 60vmin;
+  height: 60vmin;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.07;
+  animation: rotate-geometry 120s infinite linear;
+}
+
+.sacred-geometry::before,
+.sacred-geometry::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--spiritual-gold);
+  border-radius: 50%;
+  animation: pulse-geometry 15s infinite alternate ease-in-out;
+}
+
+.sacred-geometry::after {
+  transform: rotate(45deg);
+  animation-delay: 3s;
+}
+
+.sacred-geometry .inner-circle {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  right: 20%;
+  bottom: 20%;
+  border: 1px solid var(--primary-light);
+  border-radius: 50%;
+  animation: reverse-rotate 30s infinite linear;
+}
+
+.sacred-geometry .flower-of-life {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  opacity: 0.6;
+  background-image: repeating-radial-gradient(
+    circle at center,
+    transparent 0,
+    transparent 15px,
+    var(--spiritual-gold) 15px,
+    var(--spiritual-gold) 16px,
+    transparent 16px,
+    transparent 30px
+  );
+  border-radius: 50%;
+  animation: pulse-opacity 20s infinite alternate;
+}
+
+/* Glowing accent for interactive elements */
+.btn-primary:focus,
+.btn-outline:focus,
+.action-button:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background-color),
+    0 0 0 4px rgba(212, 175, 55, 0.5);
+}
+
+/* Animation keyframes */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes gentle-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotate-geometry {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes reverse-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes pulse-geometry {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes pulse-opacity {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes breathe {
+  0% {
+    width: 30%;
+    opacity: 0.5;
+  }
+  100% {
+    width: 60%;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced animated background elements */
+.cosmic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -5;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  overflow: hidden;
+}
+
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  animation: pulse-nebula 15s infinite alternate ease-in-out;
+}
+
+.nebula-1 {
+  top: 20%;
+  left: 10%;
+  width: 60vmax;
+  height: 60vmax;
+  background: radial-gradient(
+    circle,
+    rgba(0, 161, 157, 0.3) 0%,
+    rgba(0, 122, 119, 0.1) 50%,
+    transparent 70%
+  );
+  animation-delay: 0s;
+}
+
+.nebula-2 {
+  bottom: 15%;
+  right: 5%;
+  width: 50vmax;
+  height: 50vmax;
+  background: radial-gradient(
+    circle,
+    rgba(111, 66, 193, 0.2) 0%,
+    rgba(97, 38, 193, 0.08) 60%,
+    transparent 75%
+  );
+  animation-delay: 5s;
+}
+
+.nebula-3 {
+  top: 60%;
+  left: 60%;
+  width: 40vmax;
+  height: 40vmax;
+  background: radial-gradient(
+    circle,
+    rgba(255, 209, 102, 0.2) 0%,
+    rgba(255, 154, 118, 0.08) 55%,
+    transparent 70%
+  );
+  animation-delay: 2s;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      2px 2px at calc(random() * 100vw) calc(random() * 100vh),
+      #ffffff,
+      transparent
+    ),
+    radial-gradient(
+      2px 2px at calc(random() * 100vw) calc(random() * 100vh),
+      #ffffff,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at calc(random() * 100vw) calc(random() * 100vh),
+      #ffffff,
+      transparent
+    );
+  background-size: cover;
+  opacity: 0.4;
+}
+
+/* Add new cosmic dust effect */
+.cosmic-dust {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -3;
+}
+
+.dust-particle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px 1px rgba(255, 209, 102, 0.3);
+  animation: float-dust var(--animation-speed) infinite linear;
+}
+
+/* Generate 30 dust particles */
+.dust-particle:nth-child(1) {
+  top: 5%;
+  left: 10%;
+  animation-delay: 0s;
+}
+.dust-particle:nth-child(2) {
+  top: 15%;
+  left: 20%;
+  animation-delay: 2s;
+}
+.dust-particle:nth-child(3) {
+  top: 25%;
+  left: 30%;
+  animation-delay: 4s;
+}
+.dust-particle:nth-child(4) {
+  top: 35%;
+  left: 40%;
+  animation-delay: 6s;
+}
+.dust-particle:nth-child(5) {
+  top: 45%;
+  left: 50%;
+  animation-delay: 8s;
+}
+.dust-particle:nth-child(6) {
+  top: 55%;
+  left: 60%;
+  animation-delay: 10s;
+}
+.dust-particle:nth-child(7) {
+  top: 65%;
+  left: 70%;
+  animation-delay: 12s;
+}
+.dust-particle:nth-child(8) {
+  top: 75%;
+  left: 80%;
+  animation-delay: 14s;
+}
+.dust-particle:nth-child(9) {
+  top: 85%;
+  left: 90%;
+  animation-delay: 16s;
+}
+.dust-particle:nth-child(10) {
+  top: 95%;
+  left: 95%;
+  animation-delay: 18s;
+}
+.dust-particle:nth-child(11) {
+  top: 10%;
+  left: 90%;
+  animation-delay: 1s;
+}
+.dust-particle:nth-child(12) {
+  top: 20%;
+  left: 80%;
+  animation-delay: 3s;
+}
+.dust-particle:nth-child(13) {
+  top: 30%;
+  left: 70%;
+  animation-delay: 5s;
+}
+.dust-particle:nth-child(14) {
+  top: 40%;
+  left: 60%;
+  animation-delay: 7s;
+}
+.dust-particle:nth-child(15) {
+  top: 50%;
+  left: 50%;
+  animation-delay: 9s;
+}
+
+/* Add new animation keyframes */
+@keyframes pulse-nebula {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.8) translate(5%, 5%);
+  }
+  100% {
+    opacity: 0.4;
+    transform: scale(1.1) translate(-5%, -5%);
+  }
+}
+
+@keyframes float-dust {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Add gently moving waves */
+.wave-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 150%;
+  background: var(--wave-color);
+  border-radius: 40%;
+  transform: translate(-25%, 0) rotate(0deg);
+  animation: wave-rotate 20s infinite linear;
+  opacity: 0.3;
+}
+
+.wave:nth-child(2) {
+  background: var(--wave-color-alt);
+  transform: translate(-25%, -5%) rotate(180deg);
+  animation: wave-rotate-reverse 15s infinite linear;
+  opacity: 0.2;
+}
+
+.wave:nth-child(3) {
+  background: var(--wave-color);
+  transform: translate(-25%, 10%) rotate(90deg);
+  animation: wave-rotate 25s infinite linear;
+  opacity: 0.1;
+}
+
+/* Add aurora effect */
+.aurora-container {
+  position: fixed;
+  z-index: -4;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora {
+  position: absolute;
+  width: 80vw;
+  height: 60vh;
+  filter: blur(60px);
+  opacity: 0.15;
+  border-radius: 50%;
+  background: linear-gradient(
+    -45deg,
+    var(--aurora-green),
+    var(--aurora-blue),
+    var(--aurora-purple)
+  );
+  background-size: 400% 400%;
+  animation: aurora-shift 15s ease infinite;
+}
+
+.aurora:nth-child(1) {
+  top: 10%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.aurora:nth-child(2) {
+  bottom: -5%;
+  right: -10%;
+  animation-delay: 5s;
+}
+
+/* Add meditation breathing circle */
+.breath-circle {
+  position: fixed;
+  z-index: -4;
+  top: 50%;
+  left: 50%;
+  width: 10vw;
+  height: 10vw;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 161, 157, 0.02) 0%,
+    rgba(46, 196, 182, 0.05) 50%,
+    transparent 70%
+  );
+  opacity: 0.3;
+  animation: breath 8s ease-in-out infinite;
+}
+
+/* Add floating luminous orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(8px);
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.15);
+  pointer-events: none;
+  opacity: 0;
+  animation: orb-float 20s ease-in-out infinite both;
+}
+
+.orb-1 {
+  width: 15px;
+  height: 15px;
+  background-color: rgba(46, 196, 182, 0.6);
+  top: 15%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 209, 102, 0.7);
+  top: 75%;
+  left: 80%;
+  animation-delay: 4s;
+}
+
+.orb-3 {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(111, 66, 193, 0.6);
+  top: 60%;
+  left: 30%;
+  animation-delay: 8s;
+}
+
+.orb-4 {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 154, 118, 0.7);
+  top: 25%;
+  left: 70%;
+  animation-delay: 12s;
+}
+
+/* New animation keyframes */
+@keyframes wave-rotate {
+  0% {
+    transform: translate(-25%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-25%, 0) rotate(360deg);
+  }
+}
+
+@keyframes wave-rotate-reverse {
+  0% {
+    transform: translate(-25%, -5%) rotate(180deg);
+  }
+  100% {
+    transform: translate(-25%, -5%) rotate(-180deg);
+  }
+}
+
+@keyframes aurora-shift {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: scale(1.05);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.4;
+  }
+}
+
+@keyframes orb-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-40vh) translateX(20vw);
+    opacity: 0;
+  }
+}
+
 /* Responsive Styles */
 @media screen and (max-width: 1024px) {
   .container {
@@ -1040,6 +1796,17 @@ input:checked + .switch-label:before {
 }
 
 @media screen and (max-width: 768px) {
+  :root {
+    --animation-speed: 30s;
+    --particle-size: 1.5px;
+  }
+
+  .sacred-geometry {
+    width: 80vmin;
+    height: 80vmin;
+    opacity: 0.05;
+  }
+
   .bookmarks-list {
     grid-template-columns: 1fr;
   }
@@ -1092,7 +1859,12 @@ input:checked + .switch-label:before {
   }
 
   .action-button span {
-    display: none;
+    display: inline-block; /* Override any rules that might hide this */
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    padding: 10px 15px;
   }
 
   .shlok-card {
@@ -1162,6 +1934,15 @@ input:checked + .switch-label:before {
     align-items: stretch;
   }
 
+  .action-button {
+    justify-content: center; /* Center the content on small screens */
+    width: 100%;
+  }
+
+  .action-button span {
+    display: inline-block !important; /* Force display even on small screens */
+  }
+
   .note-actions {
     flex-direction: column;
     gap: 10px;
@@ -1212,11 +1993,31 @@ input:checked + .switch-label:before {
   }
 }
 
-/* Fix for iOS and Safari input zoom */
-@media screen and (max-width: 576px) {
-  input,
-  select,
-  textarea {
-    font-size: 16px;
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-particles,
+  .sacred-geometry,
+  .lotus-animation::before,
+  .section-heading h3::after {
+    animation: none;
+  }
+
+  .decorative-line::before,
+  .sacred-geometry::before,
+  .sacred-geometry::after {
+    animation: none;
+  }
+
+  .sacred-geometry .inner-circle,
+  .sacred-geometry .flower-of-life {
+    animation: none;
+  }
+
+  .wave,
+  .aurora,
+  .breath-circle,
+  .orb {
+    animation: none;
+    opacity: 0.1;
   }
 }

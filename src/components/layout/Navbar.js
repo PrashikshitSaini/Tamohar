@@ -42,7 +42,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/daily" className="navbar-logo">
-          <span className="logo-text">Tamohar</span>
+          <span className="logo-text">तमोहर</span>
         </Link>
 
         {/* Mobile menu toggle button */}
