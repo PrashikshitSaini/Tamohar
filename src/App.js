@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -19,20 +19,46 @@ import "./App.css";
 
 function App() {
   const [user, loading] = useAuthState(auth);
+  const [isLowPowered, setIsLowPowered] = useState(false);
 
-  // Generate particles for animation
+  // Detect if we need to use low-power mode (battery, older devices, etc)
+  useEffect(() => {
+    // Check if this is a mobile device that might need reduced animations
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
+    // Check if running on Chrome mobile which has more performance constraints
+    const isChromeMobile =
+      isMobile &&
+      /Chrome/i.test(navigator.userAgent) &&
+      !/SamsungBrowser/i.test(navigator.userAgent);
+
+    // Use reduced animations for Chrome mobile
+    setIsLowPowered(isChromeMobile);
+
+    // Add a class to the body for CSS targeting
+    document.body.classList.toggle("low-power-mode", isChromeMobile);
+  }, []);
+
+  // Generate particles for animation - reduce count for low-powered devices
   const renderParticles = () => {
     const particles = [];
-    for (let i = 0; i < 12; i++) {
+    const particleCount = isLowPowered ? 6 : 12;
+
+    for (let i = 0; i < particleCount; i++) {
       particles.push(<div key={`particle-${i}`} className="particle"></div>);
     }
     return particles;
   };
 
-  // Generate dust particles
+  // Generate dust particles - reduce count for low-powered devices
   const renderDustParticles = () => {
     const particles = [];
-    for (let i = 0; i < 15; i++) {
+    const particleCount = isLowPowered ? 5 : 15;
+
+    for (let i = 0; i < particleCount; i++) {
       particles.push(<div key={`dust-${i}`} className="dust-particle"></div>);
     }
     return particles;
@@ -57,37 +83,40 @@ function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div className="App">
-        {/* Enhanced background animations */}
+        {/* Enhanced background animations - conditional rendering based on device capability */}
         <div className="cosmic-background">
           <div className="nebula nebula-1"></div>
-          <div className="nebula nebula-2"></div>
-          <div className="nebula nebula-3"></div>
+          {!isLowPowered && <div className="nebula nebula-2"></div>}
+          {!isLowPowered && <div className="nebula nebula-3"></div>}
           <div className="stars"></div>
         </div>
 
-        {/* New soothing animated elements */}
+        {/* Conditionally render animations based on device capability */}
         <div className="wave-container">
           <div className="wave"></div>
-          <div className="wave"></div>
-          <div className="wave"></div>
+          {!isLowPowered && <div className="wave"></div>}
+          {!isLowPowered && <div className="wave"></div>}
         </div>
 
         <div className="aurora-container">
           <div className="aurora"></div>
-          <div className="aurora"></div>
+          {!isLowPowered && <div className="aurora"></div>}
         </div>
 
-        <div className="breath-circle"></div>
+        {!isLowPowered && <div className="breath-circle"></div>}
 
         <div className="lotus-animation"></div>
         <div className="cosmic-particles">{renderParticles()}</div>
         <div className="cosmic-dust">{renderDustParticles()}</div>
-        {renderOrbs()}
+        {!isLowPowered && renderOrbs()}
 
-        <div className="sacred-geometry">
-          <div className="inner-circle"></div>
-          <div className="flower-of-life"></div>
-        </div>
+        {/* Sacred geometry is particularly heavy, conditionally render it */}
+        {!isLowPowered && (
+          <div className="sacred-geometry">
+            <div className="inner-circle"></div>
+            <div className="flower-of-life"></div>
+          </div>
+        )}
 
         <Navbar />
         <main className="container spiritual-pattern">

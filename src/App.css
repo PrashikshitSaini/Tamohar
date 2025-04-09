@@ -1373,10 +1373,11 @@ textarea:focus {
 .nebula {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(30px); /* Reduced from 80px for better performance */
   opacity: 0.3;
   mix-blend-mode: screen;
   animation: pulse-nebula 15s infinite alternate ease-in-out;
+  will-change: opacity, transform;
 }
 
 .nebula-1 {
@@ -1427,23 +1428,19 @@ textarea:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(
-      2px 2px at calc(random() * 100vw) calc(random() * 100vh),
-      #ffffff,
-      transparent
-    ),
-    radial-gradient(
-      2px 2px at calc(random() * 100vw) calc(random() * 100vh),
-      #ffffff,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at calc(random() * 100vw) calc(random() * 100vh),
-      #ffffff,
-      transparent
-    );
-  background-size: cover;
+  background-image: radial-gradient(2px 2px at 10vw 10vh, #ffffff, transparent),
+    radial-gradient(2px 2px at 30vw 40vh, #ffffff, transparent),
+    radial-gradient(1px 1px at 60vw 30vh, #ffffff, transparent),
+    radial-gradient(1px 1px at 20vw 50vh, #ffffff, transparent),
+    radial-gradient(2px 2px at 80vw 20vh, #ffffff, transparent),
+    radial-gradient(1px 1px at 50vw 70vh, #ffffff, transparent),
+    radial-gradient(2px 2px at 90vw 60vh, #ffffff, transparent),
+    radial-gradient(1px 1px at 40vw 90vh, #ffffff, transparent),
+    radial-gradient(2px 2px at 70vw 80vh, #ffffff, transparent);
+  background-repeat: repeat;
+  background-size: 100vw 100vh;
   opacity: 0.4;
+  will-change: transform;
 }
 
 /* Add new cosmic dust effect */
@@ -1463,6 +1460,11 @@ textarea:focus {
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 5px 1px rgba(255, 209, 102, 0.3);
   animation: float-dust var(--animation-speed) infinite linear;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 /* Generate 30 dust particles */
@@ -1587,6 +1589,11 @@ textarea:focus {
   transform: translate(-25%, 0) rotate(0deg);
   animation: wave-rotate 20s infinite linear;
   opacity: 0.3;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 .wave:nth-child(2) {
@@ -1601,6 +1608,7 @@ textarea:focus {
   transform: translate(-25%, 10%) rotate(90deg);
   animation: wave-rotate 25s infinite linear;
   opacity: 0.1;
+  display: none;
 }
 
 /* Add aurora effect */
@@ -1628,6 +1636,11 @@ textarea:focus {
   );
   background-size: 400% 400%;
   animation: aurora-shift 15s ease infinite;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 .aurora:nth-child(1) {
@@ -1660,17 +1673,27 @@ textarea:focus {
   );
   opacity: 0.3;
   animation: breath 8s ease-in-out infinite;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 /* Add floating luminous orbs */
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(8px);
+  filter: blur(5px); /* Reduced from 8px */
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.15);
   pointer-events: none;
   opacity: 0;
   animation: orb-float 20s ease-in-out infinite both;
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 .orb-1 {
@@ -1797,7 +1820,7 @@ textarea:focus {
 
 @media screen and (max-width: 768px) {
   :root {
-    --animation-speed: 30s;
+    --animation-speed: 40s; /* Slower animations on mobile */
     --particle-size: 1.5px;
   }
 
@@ -1900,6 +1923,19 @@ textarea:focus {
 
   .shlok-header h2 {
     font-size: 1.5rem;
+  }
+
+  /* Reduce the number of visible animations to improve performance */
+  .particle:nth-child(n + 7),
+  .dust-particle:nth-child(n + 7),
+  .wave:nth-child(3) {
+    display: none;
+  }
+
+  /* Reduce filter complexity on mobile */
+  .nebula {
+    filter: blur(20px);
+    opacity: 0.2;
   }
 }
 
@@ -2020,4 +2056,30 @@ textarea:focus {
     animation: none;
     opacity: 0.1;
   }
+}
+
+/* Special optimizations for low-power mode (Chrome mobile) */
+body.low-power-mode .cosmic-background {
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+}
+
+body.low-power-mode .nebula {
+  filter: blur(15px);
+  opacity: 0.15;
+  animation-duration: 60s;
+}
+
+body.low-power-mode .wave,
+body.low-power-mode .aurora,
+body.low-power-mode .dust-particle {
+  animation-duration: 60s;
+}
+
+body.low-power-mode .particle {
+  box-shadow: none;
+}
+
+body.low-power-mode .lotus-animation::before {
+  animation: lotus-pulse 10s ease-in-out infinite;
+  text-shadow: 0 0 10px var(--primary-light);
 }
